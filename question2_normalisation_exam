@@ -1,0 +1,33 @@
+Normalise this data up to 3NF, taking in to account these constraints:
+
+    Each personnel number is unique
+    Each lab has a single lab code
+    Each research project has a single code and supervisor
+    Each member of the personnel may work on one or more research projects (many to many relationship) 
+    Personnel names need not necessarily be unique
+  ==>   Research code, description and supervisor are repeating fields
+
+
+UNF 
+researchlab( (primary key=Personnel number), Name, Date of Birth, Lab code, Lab name, Research code, Research description, Research supervisor)
+
+1NF 
+
+(primary key)==>  researchlab          (Personnel number, Name, Date of Birth, Lab code, Lab name, Research code, Research description, Research supervisor)
+(primary key)==>  lab                  ( Lab code, Lab name)
+(primary key)==>  research_project     (research code, research supervisor, research description)
+(primary key)==>  lab_technician       (Personnel number, Name, Date of Birth)
+(primary key)==>  research_id          (Personnel number, Name, research code, research description, research supervisor) 
+
+2NF
+                  researchlab          (Personnel number, Name, Date of Birth, Lab code, Lab name, Research code, Research description, Research supervisor)
+                  lab                  (Lab code, Lab name)
+                  technician_id        (Personnel number, Name, Date of Birth)
+                  research             (research code, research description, research supervisor, lab name)
+                  project              (Personell number, research code) ==> cross reference table is needed for the many-to-many relationship)
+		  Technician           (Personell number, research description, research supervisor)
+                  
+
+
+3NF = 2NF
+
